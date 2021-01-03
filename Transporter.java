@@ -100,5 +100,18 @@ public class Transporter {
         System.out.println("* Total value: " + getTotalPrioritySum());
 
         System.out.println("*****************************");
-	}
+    }
+    
+    /**
+     * Gibt die Anzahl der transportierten geraete zurueck
+     */
+    public int getGeraeteAnzahl() {
+        int count = 0;
+        
+        for (Geraet geraet : freightLoaded) {
+            count += geraet.getNumberLoaded();
+        }
+
+        return count;
+    }
 }

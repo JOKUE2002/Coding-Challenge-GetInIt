@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.swing.JOptionPane;
+
 /**
  * Berechnet die Loesung zur 'Coding Challenge' von 'get-in-it.de'.
  * 
@@ -36,9 +38,9 @@ class Solution {
      * 4. Transporter losschicken (Ergebnis ausgeben)
      */
     public Solution() {
-        //DataParser dp = new DataParser(); 
+        DataParser dp = new DataParser(); 
         //Debug-Hardcode
-        DataParser dp = new DataParser("/Users/jonas/Documents/GitHub/Coding-Challenge-GetInIt/data.csv");
+        //DataParser dp = new DataParser("/Users/jonas/Documents/GitHub/Coding-Challenge-GetInIt/data.csv");
 
         //1.
         alleGeraete = dp.parseFile();
@@ -90,6 +92,24 @@ class Solution {
         //4.
         t1.print();
         t2.print();
+
+        //4. (Lesbar / Sauber)
+        String output = "";
+        output += "Die Transporter transportieren in Summe " + (t1.getGeraeteAnzahl() + t2.getGeraeteAnzahl()) + " Geräte mit einer Gesamtpriorität von " + (t1.getTotalPrioritySum() + t2.getTotalPrioritySum()) +".\nDiese sind wie folgt verteilt:\n\n";
+
+        output += "Transporter 1:\n";
+        for (Geraet geraet : t1.freightLoaded) {
+            output += "" + geraet.getNumberLoaded() + "x " + geraet.getName() + "\n";
+        }
+
+        output += "\n\nTransporter 2:\n";
+        for (Geraet geraet : t2.freightLoaded) {
+            output += "" + geraet.getNumberLoaded() + "x " + geraet.getName() + "\n";
+        }
+
+        JOptionPane.showMessageDialog(null, output);
+        System.out.println(output);
+
     }
 
     public static void main(String[] args) {

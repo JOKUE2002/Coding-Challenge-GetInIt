@@ -1,3 +1,4 @@
+import java.awt.EventQueue;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -28,11 +29,19 @@ public class DataParser {
      * Ruft dazu einen JFileChooser auf, welcher den Nutzer eine Datei waehlen laesst.
      */
     public DataParser() {
-        JFileChooser jfc = new JFileChooser(System.getProperty("user.dir"));
-        jfc.showOpenDialog(new JFrame());
-
-        File selectedFile = jfc.getSelectedFile();
-        this.selectedFile = selectedFile.getAbsolutePath();
+        try {
+            EventQueue.invokeAndWait(new Runnable() {
+                @Override
+                public void run() {
+                    String folder = System.getProperty("user.dir");
+                    JFileChooser fc = new JFileChooser(folder);
+                    fc.showOpenDialog(null);
+                    selectedFile = fc.getSelectedFile().getAbsolutePath();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         System.out.println(this.selectedFile);
     }
